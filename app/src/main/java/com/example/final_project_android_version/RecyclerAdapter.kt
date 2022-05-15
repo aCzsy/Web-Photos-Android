@@ -33,10 +33,10 @@ class RecyclerAdapter(val context: Context, var ri_arraylist: ArrayList<Recycler
         val item: RecyclerItem = _ri_arraylist.get(position)
 
         // decode into bytes
-        val decodedImageBytes: ByteArray = Base64.decode(item.file_data, Base64.DEFAULT)
+        //val decodedImageBytes: ByteArray = Base64.decode(item.file_data, Base64.DEFAULT)
         //convert into bitmap and set view holder
-        val bit = BitmapFactory.decodeByteArray(decodedImageBytes, 0, decodedImageBytes.size)
-        holder.image_item.setImageBitmap(bit)
+        //val bit = BitmapFactory.decodeByteArray(decodedImageBytes, 0, decodedImageBytes.size)
+        //holder.image_item.setImageBitmap(bit)
     }
 
     // returns the number of items that are in this RecyclerAdapter

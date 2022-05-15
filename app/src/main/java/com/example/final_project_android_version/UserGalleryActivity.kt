@@ -1,25 +1,17 @@
 package com.example.final_project_android_version
 
-import android.content.Intent
-import android.graphics.BitmapFactory
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
 import android.os.Looper
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.alibaba.fastjson.JSON.parseArray
-import com.alibaba.fastjson.JSONArray
+import androidx.window.layout.WindowMetricsCalculator
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonParser
-import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -29,12 +21,14 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 
+
 class UserGalleryActivity : AppCompatActivity() {
     private val mapper = ObjectMapper()
     private lateinit var logout: Button
     private lateinit var user_images:Button
     private lateinit var fetched_image : ImageView
     private lateinit var recycler_adapter: RecyclerAdapter
+    private lateinit var gridview_adapter: GridViewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,15 +45,39 @@ class UserGalleryActivity : AppCompatActivity() {
         Log.wtf("GALLERY TOKEN=", token)
 
 
-        _recyclerview = findViewById<RecyclerView>(R.id.users_images)
+        _grudview = findViewById(R.id.user_images)
+
+        //val imageArrayList: ArrayList<RecyclerItem> = ArrayList<RecyclerItem>()
+        //imageArrayList.add(RecyclerItem())
+
+        //_recyclerview = findViewById<RecyclerView>(R.id.users_images)
 
         // set a linear layout manager on the recycler view then generate an adapter and attach it
 //        to the recycler view
-        _recyclerview.layoutManager = LinearLayoutManager(this)
-        recycler_adapter = RecyclerAdapter(this, _rl_arraylist)
-        _recyclerview.adapter = recycler_adapter
+//        _recyclerview.layoutManager = LinearLayoutManager(this)
+//        recycler_adapter = RecyclerAdapter(this, _rl_arraylist)
+//        _recyclerview.adapter = recycler_adapter
 
+        gridview_adapter = GridViewAdapter(this,imageArrayList)
+        _grudview.adapter = gridview_adapter
 
+//        val windowMetrics = WindowMetricsCalculator.getOrCreate().computeCurrentWindowMetrics(this)
+//        val currentBounds = windowMetrics.bounds // E.g. [0 0 1350 1800]
+//        val width = currentBounds.width()
+//        val height = currentBounds.height()
+//
+//        _grudview.setLayoutParams(
+//            AbsListView.LayoutParams(
+//                width/2,
+//                400
+//            )
+//        )
+
+//        val params = LinearLayout.LayoutParams(
+//            LinearLayout.LayoutParams.MATCH_PARENT,
+//            LinearLayout.LayoutParams.MATCH_PARENT
+//        )
+//        convertView.setLayoutParams(AbsListView.LayoutParams(params))
 
 
         user_images.setOnClickListener( object : View.OnClickListener {
@@ -255,8 +273,10 @@ class UserGalleryActivity : AppCompatActivity() {
                     val items = response.body()
                     if (items != null) {
                         for (i in 0 until items.count()) {
-                            _rl_arraylist.add(RecyclerItem(items[i]))
-                            recycler_adapter.notifyDataSetChanged()
+                            imageArrayList.add(RecyclerItem(items[i]))
+                            gridview_adapter.notifyDataSetChanged()
+//                            _gridview_arraylist.add(RecyclerItem(items[i]))
+//                            recycler_adapter.notifyDataSetChanged()
                             // ID
                             val image_name = items[i].image_name ?: "N/A"
                             Log.d("Image name: ", image_name)
@@ -299,4 +319,8 @@ class UserGalleryActivity : AppCompatActivity() {
     private var _rl_arraylist : ArrayList<RecyclerItem> = ArrayList<RecyclerItem>()
     private var _count: Int = 0
 
+
+    private lateinit var _grudview: GridView
+    private var _gridview_arraylist : ArrayList<RecyclerItem> = ArrayList<RecyclerItem>()
+    private var imageArrayList: ArrayList<RecyclerItem> = ArrayList<RecyclerItem>()
 }
