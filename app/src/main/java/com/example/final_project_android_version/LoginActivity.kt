@@ -66,7 +66,7 @@ class LoginActivity : AppCompatActivity() {
                 Log.wtf("BODY=",body.toString())
                 val request = Request.Builder()
                     .url(WebServiceConnectionSettings.LOG_IN)
-                    .addHeader("Authorization","Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhIiwiZXhwIjoxNjUxNDUwMzgzLCJpYXQiOjE2NTE0MzIzODN9.XylmQFWqGWfVjqtQwitJ5Ybgdp02F81U8wwolB6o-9bZVdVSmXat4SR-a59o79ag51wqdJZ3dyUBFLRVs4bE9w")
+                    //.addHeader("Authorization","Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhIiwiZXhwIjoxNjUxNDUwMzgzLCJpYXQiOjE2NTE0MzIzODN9.XylmQFWqGWfVjqtQwitJ5Ybgdp02F81U8wwolB6o-9bZVdVSmXat4SR-a59o79ag51wqdJZ3dyUBFLRVs4bE9w")
                     .post(body)
                     .build()
 
@@ -76,15 +76,17 @@ class LoginActivity : AppCompatActivity() {
                     //Mapping response to corresponding class with field token
                     val jwtResponse: JwtTokenResponse? = mapper.readValue(response.body?.string(), JwtTokenResponse::class.java)
                     //val resStr = response.body!!.string()
-                    //Log.wtf("JWT=",jwtResponse?.token)
+                    Log.wtf("JWT=",jwtResponse?.token)
 
                     //Creating full token which can be used for all api calls within application
                     //var fullToken:FullJwtToken = FullJwtToken(jwtResponse?.token)
                     fullToken = FullJwtToken(jwtResponse?.token)
                     Log.wtf("Full Jwt=",fullToken.fullToken)
+                    Log.wtf("USERNAME=", jwtResponse?.username)
 
                     var intent: Intent = Intent(applicationContext,UserGalleryActivity::class.java)
                     intent.putExtra("token",fullToken.fullToken)
+                    intent.putExtra("username", jwtResponse?.username)
 
                     //If request was successful (Status code == 200)
                     if(response.code == 200){
