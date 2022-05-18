@@ -31,20 +31,22 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        //hiding action at the top of the screen
+        supportActionBar?.hide()
 
         var fullToken:FullJwtToken = FullJwtToken("")
 
-        //Make sure we have permission to access phone's storage
-        ActivityCompat.requestPermissions(
-            this, arrayOf<String>(
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.READ_EXTERNAL_STORAGE
-            ), PackageManager.PERMISSION_GRANTED
-        )
+//        //Make sure we have permission to access phone's storage
+//        ActivityCompat.requestPermissions(
+//            this, arrayOf<String>(
+//                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+//                Manifest.permission.READ_EXTERNAL_STORAGE
+//            ), PackageManager.PERMISSION_GRANTED
+//        )
 
         val login = findViewById<Button>(R.id.auth_btn)
 
-        login.setOnClickListener { v: View? ->
+        login.setOnClickListener {
             Thread {
                 val username =
                     (findViewById<View>(R.id.username) as EditText).text

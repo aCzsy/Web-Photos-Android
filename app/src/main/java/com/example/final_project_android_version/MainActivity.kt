@@ -41,6 +41,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        //hiding action at the top of the screen
+        supportActionBar?.hide()
 
         startAppBtn = findViewById(R.id.startAppButton)
 

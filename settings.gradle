@@ -10,7 +10,9 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        google()
     }
 }
+
 rootProject.name = "Final_Project_Android_version"
 include ':app'

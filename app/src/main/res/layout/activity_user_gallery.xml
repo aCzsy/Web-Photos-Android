@@ -26,8 +26,17 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:backgroundTint="@color/main_color_darker_shade"
+        android:text="OPEN PICKER"
+        android:id="@+id/open_files"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:backgroundTint="@color/main_color_darker_shade"
         android:text="GET IMAGES"
         android:id="@+id/get_user_images_btn"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

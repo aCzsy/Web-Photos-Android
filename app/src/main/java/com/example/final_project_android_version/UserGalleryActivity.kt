@@ -1,9 +1,13 @@
 package com.example.final_project_android_version
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Looper
+import android.provider.MediaStore
 import android.util.DisplayMetrics
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -26,17 +30,32 @@ class UserGalleryActivity : AppCompatActivity() {
     private val mapper = ObjectMapper()
     private lateinit var logout: Button
     private lateinit var user_images:Button
+    private lateinit var picker:Button
+
     private lateinit var fetched_image : ImageView
     private lateinit var recycler_adapter: RecyclerAdapter
     private lateinit var gridview_adapter: GridViewAdapter
+
+    private lateinit var _token:String
+    private lateinit var _username:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_gallery)
 
+        supportActionBar?.title = "USER"
+
         var token = intent.getStringExtra("token")
         var username = intent.getStringExtra("username")
 
+        if (token != null) {
+            _token = token
+        }
+        if (username != null) {
+            _username = username
+        }
+
+        picker = findViewById(R.id.open_files)
         fetched_image = findViewById(R.id.fetched_img)
         logout = findViewById(R.id.logout)
         user_images = findViewById(R.id.get_user_images_btn)
@@ -44,7 +63,9 @@ class UserGalleryActivity : AppCompatActivity() {
         Log.wtf("GALLERY USERNAME", username)
         Log.wtf("GALLERY TOKEN=", token)
 
-
+        if (username != null) {
+            parseJSONArray(token, username)
+        }
         _grudview = findViewById(R.id.user_images)
 
         //val imageArrayList: ArrayList<RecyclerItem> = ArrayList<RecyclerItem>()
@@ -77,7 +98,23 @@ class UserGalleryActivity : AppCompatActivity() {
 //            LinearLayout.LayoutParams.MATCH_PARENT,
 //            LinearLayout.LayoutParams.MATCH_PARENT
 //        )
-//        convertView.setLayoutParams(AbsListView.LayoutParams(params))
+//        convertView.setLayoutParams(AbsListView.LayoutParams(params)) )
+
+        logout.setOnClickListener( object : View.OnClickListener {
+            override fun onClick(p0: View?) {
+                var intent: Intent = Intent(applicationContext,LoginActivity::class.java)
+                startActivity(intent)
+            }
+        })
+
+        picker.setOnClickListener( object : View.OnClickListener {
+            override fun onClick(p0: View?) {
+                var intent: Intent = Intent(applicationContext,PickerActivity::class.java)
+                intent.putExtra("token",token)
+                intent.putExtra("username",username)
+                startActivity(intent)
+            }
+        })
 
 
         user_images.setOnClickListener( object : View.OnClickListener {
@@ -139,28 +176,28 @@ class UserGalleryActivity : AppCompatActivity() {
 
 
 
-        logout.setOnClickListener { v: View? ->
-            Thread {
-                val okHttpClient = OkHttpClient()
-
-                val request = okhttp3.Request.Builder()
-                    .url(WebServiceConnectionSettings.LOGOUT)
-                    .build()
-                try {
-                    okHttpClient.newCall(request).execute().use { response ->
-                        Looper.prepare()
-                        if (response.isSuccessful) {
-                            Toast.makeText(this, "Logout success", Toast.LENGTH_SHORT).show()
-                        } else {
-                            Toast.makeText(this, "Logout failed", Toast.LENGTH_SHORT).show()
-                        }
-                        Looper.loop()
-                    }
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                }
-            }.start()
-        }
+//        logout.setOnClickListener { v: View? ->
+//            Thread {
+//                val okHttpClient = OkHttpClient()
+//
+//                val request = okhttp3.Request.Builder()
+//                    .url(WebServiceConnectionSettings.LOGOUT)
+//                    .build()
+//                try {
+//                    okHttpClient.newCall(request).execute().use { response ->
+//                        Looper.prepare()
+//                        if (response.isSuccessful) {
+//                            Toast.makeText(this, "Logout success", Toast.LENGTH_SHORT).show()
+//                        } else {
+//                            Toast.makeText(this, "Logout failed", Toast.LENGTH_SHORT).show()
+//                        }
+//                        Looper.loop()
+//                    }
+//                } catch (e: IOException) {
+//                    e.printStackTrace()
+//                }
+//            }.start()
+//        }
 
 //        val get_image: Button = findViewById(R.id.get_images_btn)
 //        get_image.setOnClickListener { v ->
@@ -204,6 +241,38 @@ class UserGalleryActivity : AppCompatActivity() {
 //        }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    //    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+//        menuInflater.inflate(R.menu.menu, menu)
+//        return super.onCreateOptionsMenu(menu)
+//    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // determine which menu item was selected
+        when(item.itemId) {
+            R.id.add -> {
+                var intent: Intent = Intent(applicationContext,PickerActivity::class.java)
+                intent.putExtra("token",_token)
+                intent.putExtra("username",_username)
+                startActivity(intent)
+            }
+            R.id.first -> {
+                var intent: Intent = Intent(applicationContext,PickerActivity::class.java)
+                intent.putExtra("token",_token)
+                intent.putExtra("username",_username)
+                startActivity(intent)
+            }
+            R.id.logout -> {
+                val intent: Intent = Intent(applicationContext,LoginActivity::class.java)
+                startActivity(intent)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
     private fun getMethod(token:String?, username:String) {
 

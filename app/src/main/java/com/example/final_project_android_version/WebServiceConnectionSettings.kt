@@ -11,5 +11,6 @@ class WebServiceConnectionSettings {
         const val LOGOUT = "$PROTOCOL://$LOCAL_MACHINE_HOST:$PORT/android/logout"
         const val GET_IMAGE = "$PROTOCOL://$LOCAL_MACHINE_HOST:$PORT/android/getImage/"
         const val GET_IMAGES = "$PROTOCOL://$LOCAL_MACHINE_HOST:$PORT/android/getUsersImages/"
+        const val UPLOAD_IMAGE = "$PROTOCOL://$LOCAL_MACHINE_HOST:$PORT/android/upload_image/"
     }
 }
