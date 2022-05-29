@@ -96,6 +96,7 @@ class UserGalleryActivity : AppCompatActivity(){
         _placeholder_item = findViewById(R.id.placeholder_item)
         _placeholder_item2 = findViewById(R.id.placeholder_item2)
 
+        //resizePlaceholderItems()
 
         gridview_adapter = GridViewAdapter(this,imageArrayList)
         _grudview.adapter = gridview_adapter
@@ -122,6 +123,19 @@ class UserGalleryActivity : AppCompatActivity(){
             _placeholder_item2.layoutParams.height = 400
         }
     }
+
+//    fun resizePlaceholderItems(){
+//        //getting device's screen dimensions
+//        val windowMetrics = WindowMetricsCalculator.getOrCreate().computeCurrentWindowMetrics(this)
+//        val currentBounds = windowMetrics.bounds
+//        val width = currentBounds.width()
+//
+//        _placeholder_item.layoutParams.width = (width/2)-35
+//        _placeholder_item.layoutParams.height = 400
+//
+//        _placeholder_item2.layoutParams.width = (width/2)-35
+//        _placeholder_item2.layoutParams.height = 400
+//    }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu, menu)

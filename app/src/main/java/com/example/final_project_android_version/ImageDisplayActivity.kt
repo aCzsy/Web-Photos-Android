@@ -12,6 +12,7 @@ import android.view.ScaleGestureDetector.SimpleOnScaleGestureListener
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.GsonBuilder
@@ -46,11 +47,13 @@ class ImageDisplayActivity : AppCompatActivity() {
     private lateinit var _username:String
     private lateinit var img_category:String
     private lateinit var cancel_img_update_btn:Button
+    private lateinit var placeholder_animation_container: ShimmerFrameLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_image_display)
 
+        placeholder_animation_container = findViewById<ShimmerFrameLayout>(R.id.image_placeholder_container)
 
         var token = intent.getStringExtra("token")
         var username = intent.getStringExtra("username")
@@ -300,12 +303,26 @@ class ImageDisplayActivity : AppCompatActivity() {
                                     0,
                                     img.size
                                 )
+
                     _image_displayed.setImageBitmap(bitmapImage)
+
+                    placeholder_animation_container.stopShimmerAnimation()
+                    placeholder_animation_container.visibility = View.GONE
                 } else {
                     Log.e("RETROFIT_ERROR", response.code().toString())
                 }
             }
         }
+    }
+
+    public override fun onResume() {
+        super.onResume()
+        placeholder_animation_container.startShimmerAnimation()
+    }
+
+    public override fun onPause() {
+        placeholder_animation_container.stopShimmerAnimation()
+        super.onPause()
     }
 
     //Return to previous activity when back button is pressed

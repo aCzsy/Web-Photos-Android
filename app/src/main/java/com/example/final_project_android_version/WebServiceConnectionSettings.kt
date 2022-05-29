@@ -2,7 +2,7 @@ package com.example.final_project_android_version
 
 class WebServiceConnectionSettings {
     companion object{
-        private const val CLOUD_HOST = "final-software-project.herokuapp.com"
+        private const val CLOUD_HOST = "my-software-project.herokuapp.com"
         private const val PROTOCOL = "https"
         const val URL = "$PROTOCOL://$CLOUD_HOST"
         const val LOG_IN = "$PROTOCOL://$CLOUD_HOST/android/authenticate"

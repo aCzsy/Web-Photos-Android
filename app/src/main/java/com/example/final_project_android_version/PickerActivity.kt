@@ -23,6 +23,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
 import androidx.lifecycle.lifecycleScope
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonParser
@@ -66,6 +67,7 @@ class PickerActivity : AppCompatActivity() {
     private lateinit var _category_select:Spinner
     private lateinit var img_category:String
     private lateinit var _cancel_btn:Button
+
 
 //    private val getResult =
 //        registerForActivityResult(
@@ -165,7 +167,6 @@ class PickerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_picker)
         val compressor = Deflater(Deflater.BEST_COMPRESSION)
-
 
         val token = intent.getStringExtra("token")
         val username = intent.getStringExtra("username")
@@ -309,24 +310,6 @@ class PickerActivity : AppCompatActivity() {
             }
         })
 
-//        logout.setOnClickListener( object : View.OnClickListener {
-//            override fun onClick(p0: View?) {
-//                val intent: Intent = Intent(applicationContext,LoginActivity::class.java)
-//                startActivity(intent)
-//            }
-//        })
-
-//        val startActivityForResultGallery =
-//            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
-//                if (result.resultCode == Activity.RESULT_OK) {
-//                    picker_image.setImageURI(result.data!!.data)
-//                }
-//            }
-//
-//        val startActivityForResultCamera =
-//            registerForActivityResult(ActivityResultContracts.TakePicture()) { bitmapImage ->
-//                picker_image.setImageBitmap(bitmapImage)
-//            }
     }
 
 
@@ -397,28 +380,7 @@ class PickerActivity : AppCompatActivity() {
 
         // Create Service
         val service = retrofit.create(APIservice::class.java)
-        // Create JSON using JSONObject
-//        val jsonObject = JSONObject()
-//        jsonObject.put("imageDTOAndroid", image)
-//
-//        // Convert JSONObject to String
-//        val jsonObjectString = jsonObject.toString()
-//
-//        // Create RequestBody ( We're not using any converter, like GsonConverter, MoshiConverter e.t.c, that's why we use RequestBody )
-//        val requestBody = jsonObjectString.toRequestBody("application/json".toMediaTypeOrNull())
 
-        //val call = service.upload_image(token, image);
-
-//        val response: Response<Response<ResponseBody>> = call.execute()
-//
-//        if (!response.isSuccessful()) {
-//            throw IOException(
-//                if (response.errorBody() != null) response.errorBody()!!
-//                    .string() else "Unknown error"
-//            )
-//        }
-
-//
         CoroutineScope(Dispatchers.IO).launch {
             runOnUiThread {
                 // Stuff that updates the UI
@@ -464,36 +426,37 @@ class PickerActivity : AppCompatActivity() {
         }
     }
 
-    @Throws(IOException::class)
-    fun compress(
-        input: ByteArray?, compressionLevel: Int,
-        GZIPFormat: Boolean
-    ): ByteArray? {
-        // Create a Deflater object to compress data
-        val compressor = Deflater(compressionLevel, GZIPFormat)
 
-        // Set the input for the compressor
-        compressor.setInput(input)
-
-        // Call the finish() method to indicate that we have
-        // no more input for the compressor object
-        compressor.finish()
-
-        // Compress the data
-        val bao = ByteArrayOutputStream()
-        val readBuffer = ByteArray(1024)
-        while (!compressor.finished()) {
-            val readCount = compressor.deflate(readBuffer)
-            if (readCount > 0) {
-                // Write compressed data to the output stream
-                bao.write(readBuffer, 0, readCount)
-            }
-        }
-
-        // End the compressor
-        compressor.end()
-
-        // Return the written bytes from output stream
-        return bao.toByteArray()
-    }
+//    @Throws(IOException::class)
+//    fun compress(
+//        input: ByteArray?, compressionLevel: Int,
+//        GZIPFormat: Boolean
+//    ): ByteArray? {
+//        // Create a Deflater object to compress data
+//        val compressor = Deflater(compressionLevel, GZIPFormat)
+//
+//        // Set the input for the compressor
+//        compressor.setInput(input)
+//
+//        // Call the finish() method to indicate that we have
+//        // no more input for the compressor object
+//        compressor.finish()
+//
+//        // Compress the data
+//        val bao = ByteArrayOutputStream()
+//        val readBuffer = ByteArray(1024)
+//        while (!compressor.finished()) {
+//            val readCount = compressor.deflate(readBuffer)
+//            if (readCount > 0) {
+//                // Write compressed data to the output stream
+//                bao.write(readBuffer, 0, readCount)
+//            }
+//        }
+//
+//        // End the compressor
+//        compressor.end()
+//
+//        // Return the written bytes from output stream
+//        return bao.toByteArray()
+//    }
 }
