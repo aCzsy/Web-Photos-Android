@@ -3,7 +3,7 @@ package com.example.final_project_android_version
 class WebServiceConnectionSettings {
     companion object{
         private const val HOST = "127.0.0.1"
-        private const val LOCAL_MACHINE_HOST = "192.168.1.150"
+        private const val LOCAL_MACHINE_HOST = "192.168.1.73"
         private const val PORT = "8080"
         private const val PROTOCOL = "http"
         const val URL = "$PROTOCOL://$LOCAL_MACHINE_HOST:$PORT"

@@ -17,6 +17,9 @@ import com.google.gson.annotations.SerializedName
 //}
 
 data class Image(
+    @SerializedName("imageId")
+    var imageId: Long?,
+
     @SerializedName("image_name")
     var image_name: String?,
 

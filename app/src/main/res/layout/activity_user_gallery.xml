@@ -7,35 +7,45 @@
     android:orientation="vertical"
     tools:context=".UserGalleryActivity">
 
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content">-->
 
-<!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:id="@+id/users_images"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent" />-->
-
-<!--    </LinearLayout>-->
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/users_images"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content" />-->
-    <Button
-        android:layout_width="match_parent"
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/placeholder_animation_container"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:backgroundTint="@color/main_color_darker_shade"
-        android:text="OPEN PICKER"
-        android:id="@+id/open_files"/>
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:orientation="vertical"
+        app:duration="800">
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:backgroundTint="@color/main_color_darker_shade"
-        android:text="GET IMAGES"
-        android:id="@+id/get_user_images_btn"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include layout="@layout/placeholder_images" />
+            <include layout="@layout/placeholder_images" />
+            <include layout="@layout/placeholder_images" />
+            <include layout="@layout/placeholder_images" />
+
+        </LinearLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+<!--    <Button-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="20dp"-->
+<!--        android:backgroundTint="@color/main_color_darker_shade"-->
+<!--        android:text="OPEN PICKER"-->
+<!--        android:id="@+id/open_files"/>-->
+
+<!--    <Button-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="20dp"-->
+<!--        android:backgroundTint="@color/main_color_darker_shade"-->
+<!--        android:text="GET IMAGES"-->
+<!--        android:id="@+id/get_user_images_btn"/>-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -55,34 +65,27 @@
             android:gravity="center"/>
     </LinearLayout>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="Logout"
-        android:backgroundTint="@color/main_color_darker_shade"
-        android:id="@+id/logout"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:backgroundTint="@color/main_color_darker_shade"
-        android:text="GET IMAGE"
-        android:id="@+id/get_images_btn"/>
+<!--    <Button-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="20dp"-->
+<!--        android:text="Logout"-->
+<!--        android:backgroundTint="@color/main_color_darker_shade"-->
+<!--        android:id="@+id/logout"/>-->
 
 <!--    <Button-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="wrap_content"-->
 <!--        android:layout_margin="20dp"-->
 <!--        android:backgroundTint="@color/main_color_darker_shade"-->
-<!--        android:text="GET IMAGES"-->
-<!--        android:id="@+id/get_user_images_btn"/>-->
+<!--        android:text="GET IMAGE"-->
+<!--        android:id="@+id/get_images_btn"/>-->
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="20dp"
-        android:id="@+id/fetched_img"/>
+
+<!--    <ImageView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_margin="20dp"-->
+<!--        android:id="@+id/fetched_img"/>-->
 
 </LinearLayout>

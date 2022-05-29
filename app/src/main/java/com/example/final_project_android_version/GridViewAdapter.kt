@@ -2,27 +2,41 @@ package com.example.final_project_android_version
 
 import android.app.Activity
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Base64
-import android.util.DisplayMetrics
-import android.view.LayoutInflater
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
-import android.widget.*
-import androidx.annotation.Nullable
+import android.widget.BaseAdapter
+import android.widget.ImageView
 import androidx.window.layout.WindowMetricsCalculator
 
 
-class GridViewAdapter(val context: Context, private val imageList: List<RecyclerItem>): BaseAdapter() {
+class GridViewAdapter(val context: Context, private val imageList: List<RecyclerItem>): BaseAdapter(){
     private val _context: Context = context
+    private var mViewClickListener: ViewClickListener? = null
+    private lateinit var _item:RecyclerItem
+
+    interface ViewClickListener {
+        fun onImageClicked(position: Int)
+    }
+
+    fun setViewClickListener(viewClickListener: ViewClickListener?) {
+        mViewClickListener = viewClickListener
+    }
+
     override fun getView(position: Int, p1: View?, parent: ViewGroup?): View {
         val img = ImageView(parent?.context)
         val item: RecyclerItem = getItem(position)
+        _item = item
 
+        /**
+         * Decoding String into byte array
+         */
         val decodedImageBytes: ByteArray = Base64.decode(item.file_data, Base64.DEFAULT)
-        //convert into bitmap and set view holder
+        /**
+         * Converting into bitmap and setting view holder
+         */
         val bit = BitmapFactory.decodeByteArray(decodedImageBytes, 0, decodedImageBytes.size)
         img.setImageBitmap(bit)
         img.scaleType = ImageView.ScaleType.FIT_XY
@@ -47,7 +61,14 @@ class GridViewAdapter(val context: Context, private val imageList: List<Recycler
         return imageList[position]
     }
 
+
+    /**
+     * @param image index inside Grid View arraylist
+     * @return image ID
+     */
     override fun getItemId(p0: Int): Long {
-        return p0.toLong()
+        return imageList[p0].imageId!!
     }
+
+
 }

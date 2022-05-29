@@ -5,8 +5,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
-<!--    <uses-permission android:name="android.permission.CAMERA" />-->
-
 
     <application
         android:allowBackup="true"
@@ -18,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Final_Project_Android_version"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".ImageDisplayActivity"
+            android:exported="false" />
         <activity
             android:name=".PickerActivity"
             android:exported="false" />

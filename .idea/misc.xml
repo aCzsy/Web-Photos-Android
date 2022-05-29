@@ -4,7 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Final_Project_Android_version/app/src/main/res/drawable/container_shape.xml" value="0.1445" />
+        <entry key="..\:/Final_Project_Android_version/app/src/main/res/layout/activity_display_image.xml" value="0.25" />
         <entry key="..\:/Final_Project_Android_version/app/src/main/res/layout/activity_image.xml" value="0.25" />
+        <entry key="..\:/Final_Project_Android_version/app/src/main/res/layout/activity_image_display.xml" value="0.25" />
         <entry key="..\:/Final_Project_Android_version/app/src/main/res/layout/activity_login.xml" value="0.2" />
         <entry key="..\:/Final_Project_Android_version/app/src/main/res/layout/activity_main.xml" value="0.2359375" />
         <entry key="..\:/Final_Project_Android_version/app/src/main/res/layout/activity_picker.xml" value="0.25" />
@@ -14,8 +16,10 @@
         <entry key="..\:/Final_Project_Android_version/app/src/main/res/layout/clicked_image.xml" value="0.25" />
         <entry key="..\:/Final_Project_Android_version/app/src/main/res/layout/image_layout.xml" value="0.25" />
         <entry key="..\:/Final_Project_Android_version/app/src/main/res/layout/image_picker.xml" value="0.25" />
+        <entry key="..\:/Final_Project_Android_version/app/src/main/res/layout/placeholder_image_item.xml" value="0.25" />
+        <entry key="..\:/Final_Project_Android_version/app/src/main/res/layout/placeholder_images.xml" value="0.25" />
         <entry key="..\:/Final_Project_Android_version/app/src/main/res/layout/recycler_image.xml" value="0.25" />
-        <entry key="..\:/Final_Project_Android_version/app/src/main/res/menu/menu.xml" value="0.25" />
+        <entry key="..\:/Final_Project_Android_version/app/src/main/res/menu/menu.xml" value="0.1" />
         <entry key="..\:/Final_Project_Android_version/app/src/main/res/menu/menu_in_picker.xml" value="0.25" />
         <entry key="..\:/Final_Project_Android_version/app/src/main/res/xml/provider_paths.xml" value="0.25" />
       </map>

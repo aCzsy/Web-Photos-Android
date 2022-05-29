@@ -34,5 +34,5 @@ data class ImageDTO_Android(
     var comment: String?,
 
     @SerializedName("file_data")
-    var file_data: ByteArray
+    var file_data: String
 )

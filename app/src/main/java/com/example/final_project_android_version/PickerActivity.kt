@@ -39,6 +39,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
+import java.nio.charset.StandardCharsets
 import java.util.zip.Deflater
 
 
@@ -165,13 +166,22 @@ class PickerActivity : AppCompatActivity() {
         setContentView(R.layout.activity_picker)
         val compressor = Deflater(Deflater.BEST_COMPRESSION)
 
-        supportActionBar?.title = "USER"
-
 
         val token = intent.getStringExtra("token")
         val username = intent.getStringExtra("username")
 
-        _username = username!!
+        if (username != null) {
+            _username = username
+        }
+
+        supportActionBar?.title = ""
+
+        val actionBar = supportActionBar
+
+        //enabling back button in action bar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+
+
 
         //Make sure we have permission to access phone's storage
         ActivityCompat.requestPermissions(
@@ -236,16 +246,19 @@ class PickerActivity : AppCompatActivity() {
                     val note = image_note.text.toString()
 
 //                 Compress the data
-                    val compressedData = compress(
-                        encodedImage,
-                        Deflater.BEST_COMPRESSION,
-                        false
-                    )
+//                    val compressedData = compress(
+//                        encodedImage,
+//                        Deflater.BEST_COMPRESSION,
+//                        false
+//                    )
 
                     if(encodedImage.isNotEmpty()){
+                        //Encoding byte array data of an image with NO_WRAP to match expected decoder format on non-android web service java end.
+                        val img = Base64.encodeToString(encodedImage, Base64.NO_WRAP)
+
                         Log.wtf("USERNAME PICKER=", username)
                         val image:ImageDTO_Android = ImageDTO_Android(file.name, mime_type,img_category,encodedImage.size.toString(),note,
-                            compressedData!!)
+                            img)
                         val uploadReq = UploadImageRequestAndroid(username, image)
                         try {
                             upload_img(token,uploadReq)
@@ -316,13 +329,15 @@ class PickerActivity : AppCompatActivity() {
 //            }
     }
 
+
     private fun encodeBitmap(bitmap:Bitmap): ByteArray {
         val baos = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
         val imageBytes: ByteArray = baos.toByteArray()
         //val encodedImage: String = Base64.encodeToString(imageBytes, Base64.DEFAULT)
-        val encodedImage: ByteArray = Base64.encode(imageBytes, Base64.DEFAULT)
-
+        //val encodedImage: ByteArray = Base64.encode(imageBytes, Base64.DEFAULT)
+        val encodedImage:ByteArray = Base64.encode(imageBytes, Base64.NO_WRAP)
+        //val bytesEncoded: ByteArray = Base64.encodeToString(str.getBytes())
         return imageBytes
     }
 
@@ -349,6 +364,13 @@ class PickerActivity : AppCompatActivity() {
             tmpFile
         )
     }
+
+    //Return to previous activity when back button is pressed
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_in_picker, menu)
