@@ -29,9 +29,9 @@ import kotlin.math.min
 
 class ImageDisplayActivity : AppCompatActivity() {
     private lateinit var _image_displayed: ImageView
-    private lateinit var scaleGestureDetector: ScaleGestureDetector
+//    private lateinit var scaleGestureDetector: ScaleGestureDetector
     // on below line we are defining our scale factor.
-    var mScaleFactor:Float = 1.0f
+//    var mScaleFactor:Float = 1.0f
 
     private lateinit var delete_btn:Button
     private lateinit var image_display_layout:ConstraintLayout
@@ -70,7 +70,7 @@ class ImageDisplayActivity : AppCompatActivity() {
         _image_displayed = findViewById(R.id.image_displayed)
         // on below line we are initializing our scale gesture detector for zoom in and out for our image.
         // on below line we are initializing our scale gesture detector for zoom in and out for our image.
-        scaleGestureDetector = ScaleGestureDetector(this, ScaleListener())
+//        scaleGestureDetector = ScaleGestureDetector(this, ScaleListener())
 
         getImage(token, imageId)
 
@@ -330,27 +330,27 @@ class ImageDisplayActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onTouchEvent(motionEvent: MotionEvent?): Boolean {
-        // inside on touch event method we are calling on
-        // touch event method and pasing our motion event to it.
-        scaleGestureDetector.onTouchEvent(motionEvent)
-        return true
-    }
-
-    inner class ScaleListener() : SimpleOnScaleGestureListener() {
-        // on below line we are creating a class for our scale
-        // listener and  extending it with gesture listener.
-        override fun onScale(scaleGestureDetector: ScaleGestureDetector): Boolean {
-            // inside on scale method we are setting scale
-            // for our image in our image view.
-            mScaleFactor *= scaleGestureDetector.scaleFactor
-            mScaleFactor = max(0.1f, min(mScaleFactor, 10.0f))
-
-            // on below line we are setting
-            // scale x and scale y to our image view.
-            _image_displayed.scaleX = mScaleFactor
-            _image_displayed.scaleY = mScaleFactor
-            return true
-        }
-    }
+//    override fun onTouchEvent(motionEvent: MotionEvent?): Boolean {
+//        // inside on touch event method we are calling on
+//        // touch event method and pasing our motion event to it.
+//        scaleGestureDetector.onTouchEvent(motionEvent)
+//        return true
+//    }
+//
+//    inner class ScaleListener() : SimpleOnScaleGestureListener() {
+//        // on below line we are creating a class for our scale
+//        // listener and  extending it with gesture listener.
+//        override fun onScale(scaleGestureDetector: ScaleGestureDetector): Boolean {
+//            // inside on scale method we are setting scale
+//            // for our image in our image view.
+//            mScaleFactor *= scaleGestureDetector.scaleFactor
+//            mScaleFactor = max(0.1f, min(mScaleFactor, 10.0f))
+//
+//            // on below line we are setting
+//            // scale x and scale y to our image view.
+//            _image_displayed.scaleX = mScaleFactor
+//            _image_displayed.scaleY = mScaleFactor
+//            return true
+//        }
+//    }
 }

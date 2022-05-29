@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.final_project_android_version">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="LockedOrientationActivity"
+    package="com.example.final_project_android_version"
+    >
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -16,23 +19,28 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Final_Project_Android_version"
         android:usesCleartextTraffic="true">
+
         <activity
             android:name=".ImageDisplayActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".PickerActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".ImageActivity"
             android:exported="false" />
         <activity
             android:name=".UserGalleryActivity"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

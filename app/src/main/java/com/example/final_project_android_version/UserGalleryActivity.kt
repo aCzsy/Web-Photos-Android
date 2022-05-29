@@ -2,6 +2,7 @@ package com.example.final_project_android_version
 
 import android.app.Activity
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -20,6 +21,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import kotlin.properties.Delegates
 
 
 class UserGalleryActivity : AppCompatActivity(){
@@ -39,9 +41,15 @@ class UserGalleryActivity : AppCompatActivity(){
     private lateinit var _placeholder_item2:View
     private lateinit var placeholder_animation_container:ShimmerFrameLayout
 
+    private var width by Delegates.notNull<Int>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_gallery)
+
+        val windowMetrics = WindowMetricsCalculator.getOrCreate().computeCurrentWindowMetrics(this)
+        val currentBounds = windowMetrics.bounds
+        width = currentBounds.width()
 
 
         var token = intent.getStringExtra("token")
@@ -88,24 +96,31 @@ class UserGalleryActivity : AppCompatActivity(){
         _placeholder_item = findViewById(R.id.placeholder_item)
         _placeholder_item2 = findViewById(R.id.placeholder_item2)
 
-        resizePlaceholderItems()
 
         gridview_adapter = GridViewAdapter(this,imageArrayList)
         _grudview.adapter = gridview_adapter
 
     }
 
-    fun resizePlaceholderItems(){
-        //getting device's screen dimensions
-        val windowMetrics = WindowMetricsCalculator.getOrCreate().computeCurrentWindowMetrics(this)
-        val currentBounds = windowMetrics.bounds
-        val width = currentBounds.width()
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
 
-        _placeholder_item.layoutParams.width = (width/2)-35
-        _placeholder_item.layoutParams.height = 400
+        // Checks the orientation of the screen
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            _placeholder_item.layoutParams.width = (width/2)-35
+            _placeholder_item.layoutParams.height = 600
 
-        _placeholder_item2.layoutParams.width = (width/2)-35
-        _placeholder_item2.layoutParams.height = 400
+            _placeholder_item2.layoutParams.width = (width/2)-35
+            _placeholder_item2.layoutParams.height = 600
+
+            gridview_adapter.resizeGridItems()
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            _placeholder_item.layoutParams.width = (width/2)-35
+            _placeholder_item.layoutParams.height = 400
+
+            _placeholder_item2.layoutParams.width = (width/2)-35
+            _placeholder_item2.layoutParams.height = 400
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
